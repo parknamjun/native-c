@@ -1,10 +1,11 @@
 # native-c
 
 eclipse에서 gcc를 이용해서 native dll 작성 및 사용
-2008년 11월 23일eahn댓글이 없습니다.
 tistory에 올렸던것을 이전~~
 
-작성일:2007.8.24(티스토리 최초 작성일), 2011.3.11 약간수정
+#### 작성일
+* 2007.8.24(티스토리 최초 작성일)
+* 2011.3.11 약간수정
 
 오래전부터 사용해왔고, 요즘은 아주 가끔 사용하는 visual c 6.0이 있는데, 요즘엔 1년에 몇번 쓸까 말까하고 기껏해야 java에서 사용하는 dll을 만드는 용도로 사용하다 보니, gcc를 사용하면 어떨까 싶어서 gclipse와 gcc를 사용하려는데, 환경은 windows라서 mingw를 사용합니다.
 
@@ -16,10 +17,11 @@ tistory에 올렸던것을 이전~~
 
 java프로젝트를 hello라고 하나 만든다. Hello.java 파일을 생성하고 Hello, World를 출력하는 코드를 만들어보자.
 
-사용자 삽입 이미지
+![](./images/1.jpg)
+
 
 오래전에 C만든 사람이 쓴 책에 있는 그 유명한 Hello, World 되겠다. 그러면 여기서 native코드를 호출하는 class를 하나 만들어보자, 아래쪽에 native Hello, World가 보이는가, 이것이 목표입니다.
-사용자 삽입 이미지
+![](./images/2.jpg)
 
 클래스내에 메소드를 선언할 때 native요거 들어간게 중요한거다, 이게 있어야 native를 사용할 수 있으며, static으로 정의되어 있는 내용은 class가 로딩될때 한번만 로딩하게 된다는 것이다. 이제 기본적인 것은 만들어 졌으니, C프로젝트를 시작할 준비를 해보자.
 
@@ -36,29 +38,30 @@ Exception in thread “main” java.lang.ClassFormatError: The major.minor versi
 현재 사용할  JDK의 버전에 맞는지 eclipse에서 확인하고 지정한다. PC에 1.4와 1.5 개의 버전이 있어 발생하는 문제이니, 1.5만 설치된 사용자는 아래의 그림처럼 자바 1.5 라이브러리만 지정하면 된다.
 
 사용하는 자바를 1.5에 설정을 한다.
-사용자 삽입 이미지
+![](./images/3.jpg)
+
 
 그리고 나서 정확한 jdk가 설치된 경로를 지정해서 아래와 같이 한다.
 
 D:projectjavagcchellobin>c:javajdk1.5.0_10binjavah -jni com.HelloWorld
 
 이제 헤더파일이 하나 만들어지는데 내용은 매우 단순하다. 그리고 나중에서 익숙해지면 javah를 사용하지 않고 그냥 만들어도 된다.
-사용자 삽입 이미지
+![](./images/4.jpg)
 
 C/C++을 사용하신 분들은 친숙한 내용들이다.  이제 헤더파일이 만들어 졌으니 C프로젝트를 시작해보자.
-사용자 삽입 이미지
+![](./images/5.jpg)
 
 C프로젝트를 선택하고 아래와 같이 지정한다.
-사용자 삽입 이미지
+![](./images/6.jpg)
 
 project types에서 Shared Library을 선택하고, Toolchain에서는 MinGW를 선택하자.
 
-사용자 삽입 이미지
+![](./images/7.jpg)
 
 이제 기본적인 준비는 되었으니, C코드를 만들어 보자, 먼저 앞서 정의한 com_HelloWorld.h파일을 src폴더를 하나 만든후에 C프로젝트로 복사한다. 파일이 많아지면 폴더를 구분하지만 여기서는 그냥 한곳에 작성한다.
 
 이제 C함수를 하나 만들어보자.
-사용자 삽입 이미지
+![](./images/8.jpg)
 
 정석대로 빌드를 하려면 makefile을 만들어서 해야하는데, makefile을 eclipse에서 간단하게 만들어보자.사용자 삽입 이미지
 
@@ -66,21 +69,21 @@ Target Name: nativeHelloWorld
 
 그리고 create 버튼을 눌러서 makefile을 생성한다. 나머지는 통과하고, 메뉴에서 windows/preferences…/Make/make targets view를 꺼내 본다. 그러면, make를 할 수 있는 화면이 아래와 같이 나온다.
 
-사용자 삽입 이미지
+![](./images/9.jpg)
 컴파일을 한번 해보자. 큰 기대는 하지말고…
-사용자 삽입 이미지
+![](./images/10.jpg)
 
 에러가 우수수 나와야 정상이다. 에러가 발생하는 원인은 include, library가 포함되지 않아서 발생하는 문제인데 이것을 추가해보자. java의 native와 관련된 헤더파일의 위치를 지정한다.
-사용자 삽입 이미지
+![](./images/11.jpg)
 
 java native library 위치를 지정한다.
-사용자 삽입 이미지
+![](./images/12.jpg)
 
 환경 설정이 끝났으면, 다시 build를 해보자. 음, 또 에러가 발생했다. 여기까지 똑같이 따라서 했으면 눈썰미 있는 분은 알겠지만 정작 필요한 헤더 파일이 include되지 않아서 발생하는 문제이다.
 사용자 삽입 이미지
 
 이상이 없다면 위와 같이 정상적으로 컴파일과, 링크가 되어서 libsharedLibrary.dll이라는 파일이 만들어 졌음을 알 수 있다, 상세한 내용은 Debug 부분을 보기 바란다. 안보이면 refresh를 하면 보인다. 지금까지 오다보니, java class 이름에 오타가 있는것을 발견했는데, 이해해주기 바란다.
-사용자 삽입 이미지
+![](./images/13.jpg)
 
 여기서 유의할 사항이 하나 있는데, dll파일의 이름에 lib이라는 것이 추가되어 있는데, unix계열에서는 lib를 붙이는 것이 일반적이다. 이것은 프로젝트 속성에서 변경이 가능하다. 이름이 변경이 되면 호출하는 곳도 변경을 해줘야 한다.이제 NativeHeloWorld를 실행해보면 이런 에러가 나올 것이다.
 
@@ -92,7 +95,7 @@ Exception in thread “main”
 libsharedLibrary를 로드 할 수 없다는 메세지인데, 이 문제를 해결하려면 windowssystem32에 복사하거나, java 폴더에 복사하는 방법이 있는데, 이런방법 보다는 실행할때 옵션을 주어서 찾는 방법을 사용해보자.
 
 hello 프로젝트의 실행환경 설정에서  Run Dialog에서 아래와 같이 shared library파일이 있는 경로는 지정한다.
-사용자 삽입 이미지
+![](./images/14.jpg)
 
 다시 한번 Hello를 실행해보자, 역시 에러다….
 
