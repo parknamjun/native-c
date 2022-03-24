@@ -87,6 +87,7 @@ java native library 위치를 지정한다.
 
 여기서 유의할 사항이 하나 있는데, dll파일의 이름에 lib이라는 것이 추가되어 있는데, unix계열에서는 lib를 붙이는 것이 일반적이다. 이것은 프로젝트 속성에서 변경이 가능하다. 이름이 변경이 되면 호출하는 곳도 변경을 해줘야 한다.이제 NativeHeloWorld를 실행해보면 이런 에러가 나올 것이다.
 
+![](./images/15.jpg)
 ava.lang.UnsatisfiedLinkError: Expecting an absolute path of the library: libsharedLibrary
 at java.lang.Runtime.load0(Runtime.java:766)
 at java.lang.System.load(System.java:968)
@@ -95,7 +96,7 @@ Exception in thread “main”
 libsharedLibrary를 로드 할 수 없다는 메세지인데, 이 문제를 해결하려면 windowssystem32에 복사하거나, java 폴더에 복사하는 방법이 있는데, 이런방법 보다는 실행할때 옵션을 주어서 찾는 방법을 사용해보자.
 
 hello 프로젝트의 실행환경 설정에서  Run Dialog에서 아래와 같이 shared library파일이 있는 경로는 지정한다.
-![](./images/14.jpg)
+![](./images/16.jpg)
 
 다시 한번 Hello를 실행해보자, 역시 에러다….
 
