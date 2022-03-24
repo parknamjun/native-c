@@ -63,15 +63,15 @@ project types에서 Shared Library을 선택하고, Toolchain에서는 MinGW를 
 이제 C함수를 하나 만들어보자.
 ![](./images/8.jpg)
 
-정석대로 빌드를 하려면 makefile을 만들어서 해야하는데, makefile을 eclipse에서 간단하게 만들어보자.사용자 삽입 이미지
+정석대로 빌드를 하려면 makefile을 만들어서 해야하는데, makefile을 eclipse에서 간단하게 만들어보자.
 
+![](./images/9.jpg)
 Target Name: nativeHelloWorld
 
 그리고 create 버튼을 눌러서 makefile을 생성한다. 나머지는 통과하고, 메뉴에서 windows/preferences…/Make/make targets view를 꺼내 본다. 그러면, make를 할 수 있는 화면이 아래와 같이 나온다.
-
-![](./images/9.jpg)
-컴파일을 한번 해보자. 큰 기대는 하지말고…
 ![](./images/10.jpg)
+
+컴파일을 한번 해보자. 큰 기대는 하지말고…
 
 에러가 우수수 나와야 정상이다. 에러가 발생하는 원인은 include, library가 포함되지 않아서 발생하는 문제인데 이것을 추가해보자. java의 native와 관련된 헤더파일의 위치를 지정한다.
 ![](./images/11.jpg)
